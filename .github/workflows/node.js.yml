@@ -28,11 +28,13 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
+    - name: Log into Docker Hub
+      run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+      
     - name: Build Docker image
       run: docker build -f Docker_Config.Dockerfile . -t moula/node-web-app:v1
 
-    - name: Log into Docker Hub
-      run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
 
     - name: Push Docker image to Docker Hub
       run: docker push moula1635/eric-robotics-repo1:latest
