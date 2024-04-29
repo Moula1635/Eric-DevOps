@@ -45,6 +45,4 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H 54.252.204.68 >> ~/.ssh/known_hosts
 
-    - name: Deploy using rsync
-      run: |
-        rsync -avzr --delete ./ ubuntu@54.252.204.68:/var/www/my-app/
+    
