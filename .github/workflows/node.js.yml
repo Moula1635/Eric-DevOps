@@ -35,7 +35,7 @@ jobs:
       run: docker build -f Docker_Config.Dockerfile . -t moula/node-web-app:v1
 
     - name: Push Docker image to Docker Hub
-      run: docker push moula1635/eric-robotics-repo1:latest
+      run: docker push moula1635/eric-robotics-repo1:v1
 
     - name: Configure SSH
       run: |
