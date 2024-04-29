@@ -29,7 +29,8 @@ jobs:
       run: npm ci
 
     - name: Log into Docker Hub
-      run: docker login -u moula1635 -p Moula$111
+      run: echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
 
       
     - name: Build Docker image
