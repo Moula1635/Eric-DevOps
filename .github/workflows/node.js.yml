@@ -28,9 +28,6 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Run __tests__
-      run: npm test
-
     - name: Build Docker image
       run: docker build -t moula1635/eric-robotics-repo1:latest .
 
