@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -30,13 +30,20 @@ jobs:
 
     - name: Log into Docker Hub
       run: echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
-
-
       
     - name: Build Docker image
       run: docker build -f Docker_Config.Dockerfile . -t moula/node-web-app:v1
 
-
-
     - name: Push Docker image to Docker Hub
       run: docker push moula1635/eric-robotics-repo1:latest
+
+    - name: Configure SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H 54.252.204.68 >> ~/.ssh/known_hosts
+
+    - name: Deploy using rsync
+      run: |
+        rsync -avzr --delete ./ ubuntu@54.252.204.68:/var/www/my-app/
